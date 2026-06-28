@@ -1,0 +1,46 @@
+# ========================
+# SECRETS — NEVER COMMIT
+# ========================
+.env
+*.session          # Telegram session files (contain your login)
+*.session-journal
+
+# ========================
+# DATA — TOO LARGE FOR GIT
+# ========================
+data/raw/
+data/processed/
+logs/
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+dist/
+build/
+*.egg
+
+# ========================
+# Jupyter
+# ========================
+.ipynb_checkpoints/
+*.ipynb
+
+# ========================
+# IDE
+# ========================
+.vscode/
+.idea/
+*.DS_Store
+
+# ========================
+# dbt
+# ========================
+medical_warehouse/target/
+medical_warehouse/dbt_packages/
+medical_warehouse/logs/
