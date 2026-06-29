@@ -12,8 +12,8 @@ psycopg2-binary==2.9.12
 sqlalchemy==2.0.51
 
 # dbt
-dbt-core==1.10.2
-dbt-postgres==1.10.2
+dbt-core==1.8.7
+dbt-postgres==1.8.2
 
 # API
 fastapi==0.138.1
@@ -25,5 +25,3 @@ ultralytics==8.4.81
 
 # Testing
 pytest==9.1.1
-# Conflict resolution
-protobuf>=5.0,<6.0
