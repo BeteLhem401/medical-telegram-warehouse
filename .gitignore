@@ -1,12 +1,12 @@
 # ========================
-# SECRETS — NEVER COMMIT
+# SECRETS 
 # ========================
 .env
-*.session          # Telegram session files (contain your login)
+*.session         
 *.session-journal
-
+telegram_session.session
 # ========================
-# DATA — TOO LARGE FOR GIT
+# DATA
 # ========================
 data/raw/
 data/processed/
@@ -19,7 +19,7 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
-venv/
+-m 
 env/
 dist/
 build/

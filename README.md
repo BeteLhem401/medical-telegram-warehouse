@@ -2,7 +2,6 @@
 
 An end-to-end ELT pipeline for Ethiopian medical business intelligence, built on public Telegram channel data.
 
-**Built for:** 10 Academy Week 8 Challenge | Kara Solutions  
 **Stack:** Python · Telethon · PostgreSQL · dbt · YOLOv8 · FastAPI · Dagster
 
 ---
@@ -16,7 +15,7 @@ Telegram Channels
 Data Lake          ← data/raw/  (JSON + images)
       │  (SQLAlchemy loader)
       ▼
-PostgreSQL         ← raw schema
+PostgreSQL         ← raw_messages table
       │  (dbt)
       ▼
 Star Schema        ← staging → marts
@@ -35,7 +34,7 @@ Analytical API     ← /api/v1/...
 ### 1. Clone and set up environment
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/medical-telegram-warehouse.git
+git clone https://github.com/BeteLhem401/medical-telegram-warehouse.git
 cd medical-telegram-warehouse
 
 python -m venv venv
@@ -57,8 +56,27 @@ cp .env.example .env
 python src/scraper.py
 ```
 
-On first run, Telegram will send you a verification code via SMS/app.  
+On first run, Telegram will send you a verification code via SMS/app.
 Enter it in the terminal. A `telegram_session.session` file is created — **never commit this.**
+
+### 4. Start the database
+
+```bash
+docker-compose up -d
+```
+
+### 5. Load data into PostgreSQL
+
+```bash
+python src/load_to_postgres.py
+```
+
+### 6. Run dbt transformations
+
+```bash
+cd medical_warehouse
+dbt run
+```
 
 ---
 
@@ -66,10 +84,28 @@ Enter it in the terminal. A `telegram_session.session` file is created — **nev
 
 ```
 medical-telegram-warehouse/
-├── .env.example              # Credential template
-├── .gitignore                # Protects secrets and data
-├── requirements.txt          # Python dependencies
+├── .env.example
+├── .gitignore
+├── requirements.txt
+├── docker-compose.yml
 ├── README.md
+├── src/
+│   ├── scraper.py
+│   ├── load_to_postgres.py
+│   └── yolo_detect.py
+├── medical_warehouse/
+│   ├── dbt_project.yml
+│   └── models/
+│       ├── staging/
+│       │   └── stg_telegram_messages.sql
+│       └── marts/
+│           └── fct_messages.sql
+├── api/
+│   ├── main.py
+│   ├── database.py
+│   └── schemas.py
+├── tests/
+│   └── test_scraper_utils.py
 ├── data/
 │   └── raw/
 │       ├── telegram_messages/
@@ -78,12 +114,7 @@ medical-telegram-warehouse/
 │       └── images/
 │           └── channel_name/
 │               └── message_id.jpg
-├── src/
-│   └── scraper.py            # Task 1: Telegram scraper
-├── medical_warehouse/        # Task 3: dbt project (coming soon)
-├── api/                      # Task 5: FastAPI (coming soon)
-├── logs/                     # Scraping activity logs
-└── tests/                    # Unit tests
+└── logs/
 ```
 
 ---
@@ -110,19 +141,8 @@ Each message is stored as a JSON object:
 | Channel | Focus |
 |---------|-------|
 | `@lobelia4cosmetics` | Cosmetics & health products |
-| `@tikvahethiopia` | Pharmaceuticals |
+| `@tikvahpharma` | Pharmaceuticals |
 | `@CheMed123` | Medical products |
-
----
-
-## 📋 Task Progress
-
-- [x] Task 1 — Data Scraping & Collection
-- [ ] Task 2 — PostgreSQL Data Warehouse
-- [ ] Task 3 — dbt Star Schema Transformation
-- [ ] Task 4 — YOLO Image Enrichment
-- [ ] Task 5 — FastAPI Analytical API
-- [ ] Task 6 — Dagster Orchestration
 
 ---
 
