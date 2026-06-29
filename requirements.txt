@@ -26,4 +26,4 @@ ultralytics==8.4.81
 # Testing
 pytest==9.1.1
 # Conflict resolution
-protobuf>=6.0,<7.0
+protobuf>=5.0,<6.0
