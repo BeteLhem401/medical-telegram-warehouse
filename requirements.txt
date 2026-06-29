@@ -1,0 +1,27 @@
+# Telegram scraping
+telethon==1.44.0
+
+# Environment variables
+python-dotenv==1.2.2
+
+# Data handling
+pandas==3.0.4
+
+# Database
+psycopg2-binary==2.9.12
+sqlalchemy==2.0.51
+
+# dbt
+dbt-core==1.10.2
+dbt-postgres==1.10.2
+
+# API
+fastapi==0.138.1
+uvicorn==0.49.0
+pydantic==2.13.4
+
+# Image detection
+ultralytics==8.4.81
+
+# Testing
+pytest==9.1.1
