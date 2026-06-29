@@ -2,7 +2,7 @@ name: Unit Tests
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, dev, feature/task2-data-warehouse ]
   pull_request:
     branches: [ main ]
 
@@ -28,7 +28,6 @@ jobs:
         run: |
           pytest tests/ -v --tb=short
         env:
-          # Use dummy values for CI — tests don't hit real Telegram
           TELEGRAM_API_ID: "12345"
           TELEGRAM_API_HASH: "dummyhash"
           TELEGRAM_PHONE: "+2510000000"
