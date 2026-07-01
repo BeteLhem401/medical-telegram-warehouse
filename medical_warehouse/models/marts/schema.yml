@@ -46,14 +46,50 @@ models:
         tests:
           - not_null
           - relationships:
-            arguments:
-              to: ref('dim_channels')
-              field: channel_key
+              arguments:
+                to: ref('dim_channels')
+                field: channel_key
       - name: date_key
         description: "Foreign key to dim_dates."
         tests:
           - not_null
           - relationships:
-            arguments:
-              to: ref('dim_dates')
-              field: date_key
+              arguments:
+                to: ref('dim_dates')
+                field: date_key
+
+  - name: fct_image_detections
+    description: "One row per detected object in an image, linked to the message and channel it came from, with a derived promotional/product_display/lifestyle/other classification."
+    columns:
+      - name: message_id
+        description: "Telegram message ID the image belongs to."
+        tests:
+          - not_null
+      - name: channel_key
+        description: "Foreign key to dim_channels."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_channels')
+                field: channel_key
+      - name: date_key
+        description: "Foreign key to dim_dates."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_dates')
+                field: date_key
+      - name: image_category
+        description: "Derived classification: promotional, product_display, lifestyle, or other."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['promotional', 'product_display', 'lifestyle', 'other']
+      - name: detected_class
+        description: "YOLO-detected object class (e.g. person, bottle)."
+        tests:
+          - not_null
+      - name: confidence_score
+        description: "YOLOv8 detection confidence score, 0 to 1."
