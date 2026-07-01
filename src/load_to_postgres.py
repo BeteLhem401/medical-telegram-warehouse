@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS raw_messages (
     views            INTEGER,
     forwards         INTEGER,
     scraped_at       TIMESTAMPTZ,
-    loaded_at        TIMESTAMPTZ DEFAULT NOW()
+    loaded_at        TIMESTAMPTZ DEFAULT NOW(),
+    CONSTRAINT unique_message UNIQUE (message_id, channel_name)
 );
 """
 
