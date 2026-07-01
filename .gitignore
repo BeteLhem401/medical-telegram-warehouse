@@ -45,3 +45,4 @@ medical_warehouse/target/
 medical_warehouse/dbt_packages/
 medical_warehouse/logs/
 yolov8n.pt
+.tmp_dagster_home_*/
