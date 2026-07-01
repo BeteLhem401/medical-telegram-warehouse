@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: dim_channels
+    description: "One row per Telegram channel, with channel type classification and post activity summary stats."
+    columns:
+      - name: channel_key
+        description: "Surrogate key for the channel, generated from channel_name."
+        tests:
+          - unique
+          - not_null
+      - name: channel_name
+        description: "Raw Telegram channel username."
+        tests:
+          - unique
+          - not_null
+      - name: channel_type
+        description: "Business classification of the channel: Pharmaceutical, Cosmetics, or Medical."
+        tests:
+          - not_null
+
+  - name: dim_dates
+    description: "One row per calendar date present in the message data, with date part breakdowns."
+    columns:
+      - name: date_key
+        description: "Surrogate key for the date, formatted as YYYYMMDD."
+        tests:
+          - unique
+          - not_null
+      - name: full_date
+        description: "The calendar date."
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_messages
+    description: "One row per Telegram message, with foreign keys to dim_channels and dim_dates."
+    columns:
+      - name: message_id
+        description: "Unique identifier for the message."
+        tests:
+          - unique
+          - not_null
+      - name: channel_key
+        description: "Foreign key to dim_channels."
+        tests:
+          - not_null
+          - relationships:
+            arguments:
+              to: ref('dim_channels')
+              field: channel_key
+      - name: date_key
+        description: "Foreign key to dim_dates."
+        tests:
+          - not_null
+          - relationships:
+            arguments:
+              to: ref('dim_dates')
+              field: date_key
